@@ -1,0 +1,17 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "runArgs": ["--privileged"],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools",
+        "mechatroner.rainbow-csv",
+        "twxs.cmake"
+      ]
+    }
+  }
+}
