@@ -122,6 +122,8 @@ def run_experiments_dynamic_ycsb(er):
     shutil.copy("x86-instructions.h", "temp-experiments")
     change_line_in_file("temp-experiments/augmented_btree_olc.hpp", '#include \"index.hpp\"', "#include \"index.h\"\n")
 
+    first = True
+
     for nk in er.initial_tree_size:
         for ia in er.workload_size:
             for ns in er.node_size:
@@ -136,10 +138,11 @@ def run_experiments_dynamic_ycsb(er):
                                 same = f.read() == workload_format
                         else:
                             same = False
-                        if not same:
+                        if not same or first:
                             with open('workload_specification/workloada', 'w') as workload_f:
                                 workload_f.write(workload_file.format(num_write_keys = nk,num_operations = ia, read_proportion = pw, insert_proportion = 1-pw, key_type=kt))
                             os.system('./script/generate_ycsb.py a ' + kt)
+                            first = False
                         for l in er.linear:
                             for t in er.threads:
                                 for p in er.placement:
@@ -167,6 +170,6 @@ def run_experiments_dynamic_ycsb(er):
 
             
 
-experiment_ranges = ExperimentRanges(initial_tree_size = [100000], lookup_ratio = [1.0], linear = [True], max_code_depth = [-1], node_size = [512], threads = [1], repetitions = 5, workload_size = [100000], placement = ['compact'], key_type = ['randint'])
+experiment_ranges = ExperimentRanges(initial_tree_size = [10000000], lookup_ratio = [0.5,0.6, 0.7, 0.8, 0.9, 0.95, 0.98, 0.99, 1.0], linear = [True, False], max_code_depth = [-1,2,4,8], node_size = [256,512,1024,2048,4096], threads = [1,2,4,8,16,32,64], repetitions = 5, workload_size = [10000000], placement = ['compact'], key_type = ['randint', 'rand32'])
 
 run_experiments_dynamic_ycsb(experiment_ranges)
