@@ -14,6 +14,8 @@ An implementation of a B+-Tree, which can directly generate Machine Code realizi
 | `script/generate_ycsb.py` | Generates workload files with YCSB |
 | `workload_specification/` | YCSB workload specifications |
 | `.devcontainer/` | Development container (Ubuntu 22.04 with all dependencies) |
+| `code-b+tree-results-synchronization.csv` | Results shown in the evaluation using synchronization |
+| `code-b+tree-results-no-synchronization.csv` | Results shown in the evaluation with synchronization logic removed |
 
 ## Starting the dev container
 
